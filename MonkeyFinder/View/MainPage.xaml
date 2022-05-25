@@ -6,6 +6,9 @@
              x:Class="MonkeyFinder.MainPage"  
              x:DataType="viewmodel:MonkeyViewModel"
              Title="{Binding Title}">
+    <!--<ContentPage.BindingContext>
+        <viewmodel:MonkeyViewModel/>
+    </ContentPage.BindingContext>-->
     <Grid 
         ColumnDefinitions="*,*" 
         ColumnSpacing="5" 
@@ -16,39 +19,37 @@
                         Grid.ColumnSpan="2">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Monkey">
-                    <Grid Padding="10,5">
+                    <Grid Padding="10">
                         <Frame HeightRequest="125" Style="{StaticResource CardView}">
                             <Grid Padding="0" ColumnDefinitions="125,*">
-                                <Image Aspect="AspectFill"
-                                       Source="{Binding Image}"
+                                <Image Aspect="AspectFill" Source="{Binding Image}"
                                        WidthRequest="125"
                                        HeightRequest="125"/>
                                 <StackLayout
                                     Grid.Column="1"
                                     Padding="10"
                                     VerticalOptions="Center">
-                                    <Label Style="{StaticResource LargeLabel}"
-                                           Text="{Binding Name}"/>
-                                    <Label Style="{StaticResource MediumLabel}"
-                                           Text="{Binding Location}"/>
+                                    <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}" />
+                                    <Label Style="{StaticResource MediumLabel}" Text="{Binding Location}" />
                                 </StackLayout>
                             </Grid>
                         </Frame>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-            
+
         </CollectionView>
-        
+
         <!--Get monkeys button-->
-        <Button Text="Get Monkeys"
+        <Button Text="Get Monkeys" 
                 Command="{Binding GetMonkeysCommand}"
                 IsEnabled="{Binding IsNotBusy}"
                 Grid.Row="1"
                 Grid.Column="0"
-                Margin="8"
-                Style="{StaticResource ButtonOutline}"/>
-        
+                Style="{StaticResource ButtonOutline}"
+                Margin="8"/>
+
+
         <!--Activity Indicator-->
         <ActivityIndicator IsVisible="{Binding IsBusy}"
                            IsRunning="{Binding IsBusy}"

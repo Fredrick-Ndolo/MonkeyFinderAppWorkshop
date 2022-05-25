@@ -9,7 +9,7 @@
 
     
     <ShellContent
-        Title="Hello, World!"
+        Title="Monkey, Findeeer!"
         ContentTemplate="{DataTemplate views:MainPage}"
         Route="MainPage" />
 

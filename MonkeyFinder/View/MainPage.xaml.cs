@@ -9,7 +9,9 @@ public partial class MainPage : ContentPage
     public MainPage(MonkeyViewModel monkeysViewModel)
 	{
 		InitializeComponent();
+
         this.monkeysViewModel = monkeysViewModel;
+
         BindingContext = this.monkeysViewModel;
     }
 }

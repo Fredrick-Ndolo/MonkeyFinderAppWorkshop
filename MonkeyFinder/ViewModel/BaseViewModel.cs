@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 
 namespace MonkeyFinder.ViewModel
 {
-    public class BaseViewModel : ObservableObject
+    public partial class BaseViewModel : ObservableObject
     {
         //Backing field
         [ObservableProperty]
         [AlsoNotifyChangeFor(nameof(IsNotBusy))]
         bool isBusy;
+
         [ObservableProperty]
         string title;
         public bool IsNotBusy => !IsBusy;
