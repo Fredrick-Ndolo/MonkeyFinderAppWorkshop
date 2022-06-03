@@ -11,6 +11,10 @@ namespace MonkeyFinder.ViewModel
 {
     public partial class BaseViewModel : ObservableObject
     {
+        public BaseViewModel()
+        {
+
+        }
         //Backing field
         [ObservableProperty]
         [AlsoNotifyChangeFor(nameof(IsNotBusy))]

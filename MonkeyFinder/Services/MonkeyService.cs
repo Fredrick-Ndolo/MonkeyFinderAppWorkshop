@@ -23,6 +23,7 @@ namespace MonkeyFinder.Services
             
             if (response.IsSuccessStatusCode)
             {
+                //monkeyList = await response.Content.ReadFromJsonAsync<List<Monkey>>();
                 monkeyList = await response.Content.ReadFromJsonAsync<List<Monkey>>();
             }
 

@@ -6,9 +6,6 @@
              x:Class="MonkeyFinder.MainPage"  
              x:DataType="viewmodel:MonkeyViewModel"
              Title="{Binding Title}">
-    <!--<ContentPage.BindingContext>
-        <viewmodel:MonkeyViewModel/>
-    </ContentPage.BindingContext>-->
     <Grid 
         ColumnDefinitions="*,*" 
         ColumnSpacing="5" 
@@ -16,7 +13,8 @@
         RowSpacing="0">
         <CollectionView ItemsSource="{Binding Monkeys}" 
                         SelectionMode="Single"
-                        Grid.ColumnSpan="2">
+                        Grid.ColumnSpan="2"
+                        EmptyView="No Monkeys Found...">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Monkey">
                     <Grid Padding="10">
@@ -24,15 +22,27 @@
                             <Grid Padding="0" ColumnDefinitions="125,*">
                                 <Image Aspect="AspectFill" Source="{Binding Image}"
                                        WidthRequest="125"
-                                       HeightRequest="125"/>
-                                <StackLayout
+                                       HeightRequest="125">
+                                </Image>
+                                <VerticalStackLayout
                                     Grid.Column="1"
                                     Padding="10"
                                     VerticalOptions="Center">
                                     <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}" />
                                     <Label Style="{StaticResource MediumLabel}" Text="{Binding Location}" />
-                                </StackLayout>
+                                </VerticalStackLayout>
                             </Grid>
+                            <Frame.GestureRecognizers>
+                                <ClickGestureRecognizer
+                                    NumberOfClicksRequired="2"
+                                    CommandParameter="{Binding .}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MonkeyViewModel}},Path=GoToDetailsCommand}"/>
+
+                                <TapGestureRecognizer
+                                    NumberOfTapsRequired="2"
+                                    CommandParameter="{Binding .}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MonkeyViewModel}},Path=GoToDetailsCommand}"/>
+                            </Frame.GestureRecognizers>
                         </Frame>
                     </Grid>
                 </DataTemplate>
@@ -42,7 +52,7 @@
 
         <!--Get monkeys button-->
         <Button Text="Get Monkeys" 
-                Command="{Binding GetMonkeysCommand}"
+                Command="{Binding GetMonkeyCommand}"
                 IsEnabled="{Binding IsNotBusy}"
                 Grid.Row="1"
                 Grid.Column="0"

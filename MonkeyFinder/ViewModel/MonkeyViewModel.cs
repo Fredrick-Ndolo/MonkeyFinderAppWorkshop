@@ -9,6 +9,7 @@ using MonkeyFinder.Services;
 using System.Diagnostics;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
+using MonkeyFinder.View;
 
 namespace MonkeyFinder.ViewModel
 {
@@ -18,12 +19,11 @@ namespace MonkeyFinder.ViewModel
         private readonly MonkeyService monkeyService;
 
         public ObservableCollection<Monkey> Monkeys { get; } = new();
-        public Command GetMonkeysCommand { get; }
+       
         public MonkeyViewModel(MonkeyService monkeyService)
         {
             Title = "Monkey Finder";
             this.monkeyService = monkeyService;
-            //GetMonkeysCommand = new Command(async () => await GetMonkeyAsync());
         }
 
         [ICommand]
@@ -46,12 +46,24 @@ namespace MonkeyFinder.ViewModel
             catch (Exception ex)
             {
                 Debug.WriteLine($"Unable to get monkeys {ex.Message}");
-                await Application.Current.MainPage.DisplayAlert("Error!", ex.Message, "OK");
+                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
             }
             finally
             {
                 IsBusy = false;
             }
+        }
+
+        [ICommand]
+        async Task GoToDetailsAsync(Monkey monkey)
+        {
+            if (monkey is null)
+                return;
+
+            await Shell.Current.GoToAsync($"{nameof(DetailsPage)}",true, new Dictionary<string, object>
+            {
+                {"Monkey",monkey }
+            });
         }
     }
 }
